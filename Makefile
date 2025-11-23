@@ -15,41 +15,41 @@ help:
 
 up:
 	@echo "🚀 Starting DDE development environment..."
-	docker-compose up -d
+	docker compose up -d
 	@echo "✅ Services started successfully!"
 	@echo "Frontend: http://localhost:3000"
 	@echo "Backend API: http://localhost:8000/docs"
 
 down:
 	@echo "🛑 Stopping DDE development environment..."
-	docker-compose down
+	docker compose down
 
 build:
 	@echo "🏗️  Building Docker images..."
-	docker-compose build
+	docker compose build
 
 logs:
 	@echo "📜 Following logs for service: $(or $(s),all services)"
-	docker-compose logs -f $(s)
+	docker compose logs -f $(s)
 
 migrate:
 	@echo "🗄️  Running Alembic migrations..."
-	docker-compose exec backend alembic upgrade head
+	docker compose exec backend alembic upgrade head
 
 makemigrations:
 	@echo "📝 Creating new migration..."
-	docker-compose exec backend alembic revision --autogenerate -m "$(m)"
+	docker compose exec backend alembic revision --autogenerate -m "$(m)"
 
 test:
 	@echo "🧪 Running backend tests..."
-	docker-compose exec backend pytest
+	docker compose exec backend pytest
 
 clean:
 	@echo "🧹 Cleaning up..."
-	docker-compose down -v
+	docker compose down -v
 	rm -rf backend/__pycache__ backend/.pytest_cache
 	rm -rf frontend/.next frontend/node_modules
 
 shell:
 	@echo "🐚 Opening shell in backend container..."
-	docker-compose exec backend /bin/bash
+	docker compose exec backend /bin/bash
