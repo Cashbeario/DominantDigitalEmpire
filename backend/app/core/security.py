@@ -14,6 +14,9 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 def get_password_hash(password: str) -> str:
     """Generate a password hash."""
+    # Simple fix for bcrypt 72 byte limit
+    if len(password) > 72:
+        password = password[:72]
     return pwd_context.hash(password)
 
 
